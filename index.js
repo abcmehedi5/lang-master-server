@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
+const cors = require("cors");
+const user = require("./fakeData.json");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 require("dotenv").config();
 // middleware
@@ -28,6 +30,12 @@ async function run() {
     // database collection
     const db = client.db("langmaster");
     const userCollection = db.collection("users");
+
+    // api
+
+    app.get("/user", (req, res) => {
+      res.send(user);
+    });
 
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
