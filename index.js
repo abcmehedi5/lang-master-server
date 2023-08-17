@@ -1,19 +1,18 @@
 const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
-const cors = require("cors");
-const user = require("./fakeData.json");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-require("dotenv").config();
 // middleware
 app.use(cors());
 app.use(express.json());
-app.get("/", (req, res) => {
-  res.send("Hello Lang Master");
-});
 
+console.log(process.env.DB_USER, process.env.DB_PASSWORD);
 // MONGODB CONNECT START------------------------------------
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.mbjz2.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://<${process.env.DB_USER}>:<${process.env.DB_PASSWORD}>@langmaster.cdgcbkc.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@langmaster.cdgcbkc.mongodb.net/?retryWrites=true&w=majority`;
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -25,17 +24,19 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    await client.db("admin").command({ ping: 1 });
 
-    // database collection
-    const db = client.db("langmaster");
-    const userCollection = db.collection("users");
+    // collections
+    const learningQuestionsCollection = client
+      .db("LangMaster")
+      .collection("questions");
 
-    // api
-
-    app.get("/user", (req, res) => {
-      res.send(user);
+    //! get all learning questions
+    app.get("/learning-questions", async (req, res) => {
+      const allQuestions = await learningQuestionsCollection.find().toArray();
+      res.send(allQuestions);
     });
+
+    await client.db("admin").command({ ping: 1 });
 
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
@@ -48,6 +49,9 @@ run().catch(console.dir);
 
 // MONGODB CONNECT END------------------------------------
 
+app.get("/", (req, res) => {
+  res.send("Hello Lang Master");
+});
 app.listen(port, () => {
   console.log(`Lang master app listening on port ${port}`);
 });
