@@ -1,4 +1,4 @@
-const connectToMongoDB = require("../../config/db");
+const connectToMongoDB = require("../config/db");
 const verifyAdmin = async (req, res, next) => {
   const client = await connectToMongoDB();
   const userCollection = client.db("LangMaster").collection("users");
