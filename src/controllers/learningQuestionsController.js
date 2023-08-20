@@ -10,7 +10,7 @@ const getAllLearningQuestions = async () => {
 };
 
 // Function to create a new learning question
-async function createLearningQuestion(questionData) {
+const createLearningQuestion = async (questionData) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
@@ -20,7 +20,7 @@ async function createLearningQuestion(questionData) {
   const result = await learningQuestionsCollection.insertOne(questionData);
   // Return the newly created question
   return result;
-}
+};
 
 module.exports = {
   getAllLearningQuestions,

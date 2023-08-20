@@ -13,7 +13,6 @@ app.get("/", (req, res) => {
 
 app.use("/learning-questions", learningQuestionsRoutes);
 app.use("/json-web-token", JwtRoutes);
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
