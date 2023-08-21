@@ -50,7 +50,7 @@ run().catch(console.dir);
 // MONGODB CONNECT END------------------------------------
 
 app.get("/", (req, res) => {
-  res.send("Hello Lang Master");
+  res.send("Lang Master is Running");
 });
 app.listen(port, () => {
   console.log(`Lang master app listening on port ${port}`);
