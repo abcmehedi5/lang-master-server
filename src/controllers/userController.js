@@ -22,7 +22,25 @@ const getUser = async () => {
   return result;
 };
 
+//update user with quiz result
+const updateUser = async (userEmail, score) => {
+  console.log("controler score", score);
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  const updateResult = await userCollection.updateOne(
+    { email: userEmail },
+    {
+      $inc: {
+        score: score,
+      },
+    }
+  );
+
+  return updateResult;
+};
+
 module.exports = {
   createUser,
   getUser,
+  updateUser,
 };

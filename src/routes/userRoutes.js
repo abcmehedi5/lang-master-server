@@ -25,4 +25,18 @@ router.get("/user", async (req, res) => {
   }
 });
 
+//update user
+
+router.patch("/user/:email", async (req, res) => {
+  const userEmail = req.params.email;
+  const score = req.body.score;
+  console.log("useremail", userEmail, score);
+  try {
+    const result = await userController.updateUser(userEmail, score);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: "Internal Server Error", error });
+  }
+});
+
 module.exports = router;
