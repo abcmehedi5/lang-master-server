@@ -4,7 +4,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const learningQuestionsRoutes = require("./src/routes/learningQuestionsRoutes");
 const JwtRoutes = require("./src/routes/JwtRoutes");
-const notificationRouter = require('./src/routes/notificationRoutes')
+const notificationRouter = require("./src/routes/notificationRoutes");
+const userRoutes = require("./src/routes/userRoutes");
 app.use(cors());
 app.use(express.json());
 
@@ -14,7 +15,8 @@ app.get("/", (req, res) => {
 
 app.use("/learning-questions", learningQuestionsRoutes);
 app.use("/json-web-token", JwtRoutes);
-app.use("/notifications" , notificationRouter)
+app.use("/notifications", notificationRouter);
+app.use("/users", userRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const learningQuestionsController = require("../controllers/learningQuestionsController");
+const verifyJWT = require("../middleware/verifyJWT");
 
 // Add a new route for POST requests to create a question
 router.post("/questions", async (req, res) => {
@@ -18,7 +19,7 @@ router.post("/questions", async (req, res) => {
 });
 
 // get all data form learningQuestionsController
-router.get("/questions", async (req, res) => {
+router.get("/questions", verifyJWT, async (req, res) => {
   try {
     const allQuestions =
       await learningQuestionsController.getAllLearningQuestions();
