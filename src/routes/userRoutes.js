@@ -17,8 +17,12 @@ router.post("/user", async (req, res) => {
 // user get
 
 router.get("/user", async (req, res) => {
-  const result = await userController.getUser();
-  res.send(result);
+  try {
+    const result = await userController.getUser();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: "Internal Server Error", error });
+  }
 });
 
 module.exports = router;
