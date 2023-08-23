@@ -39,4 +39,15 @@ router.patch("/user/:email", async (req, res) => {
   }
 });
 
+// search user api for user management page
+router.get("/user/:text", async (req, res) => {
+  const searchText = req.params.text;
+  try {
+    const result = await userController.searchUser(searchText);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: "Search not working", error });
+  }
+});
+
 module.exports = router;
