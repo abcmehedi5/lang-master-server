@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello Lang Master");
+  res.send("Lang Master is Running");
 });
 
 app.use("/learning-questions", learningQuestionsRoutes);
