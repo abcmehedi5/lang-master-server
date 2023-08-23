@@ -30,4 +30,18 @@ router.get("/questions", verifyJWT, async (req, res) => {
   }
 });
 
+
+// unit add api Controller start ----------------------------
+
+router.post("/questions-create" , async (res, req) =>{
+  try {
+    //route 
+  } catch (error) {
+    // error
+  }
+} )
+
+
+// unit add api Controller end ----------------------------
+
 module.exports = router;

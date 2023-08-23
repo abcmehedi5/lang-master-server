@@ -22,7 +22,19 @@ const createLearningQuestion = async (questionData) => {
   return result;
 };
 
+// unit add api Controller start ----------------------------
+
+const unitAdd = async () => {
+  const client = await connectToMongoDB();
+  const learningQuestionsCollection = client
+    .db("LangMaster")
+    .collection("questions");
+};
+
+// unit add api Contoller end -------------------------------
+
 module.exports = {
   getAllLearningQuestions,
   createLearningQuestion,
+  unitAdd,
 };
