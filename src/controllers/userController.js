@@ -39,8 +39,24 @@ const updateUser = async (userEmail, score) => {
   return updateResult;
 };
 
+//get user by search on user management page
+const searchUser = async (searchText) => {
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  const result = await userCollection
+    .find({
+      $or: [
+        { name: { $regex: searchText, $options: "i" } }, // Case-insensitive search
+        { email: { $regex: searchText, $options: "i" } }, // Case-insensitive search
+      ],
+    })
+    .toArray();
+  return result;
+};
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
+  searchUser,
 };
