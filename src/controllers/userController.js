@@ -43,7 +43,8 @@ const updateUser = async (userEmail, score) => {
 const searchUser = async (searchText) => {
   const client = await connectToMongoDB();
   const userCollection = client.db("LangMaster").collection("users");
-  const result = await userCollection
+
+const result = await userCollection
     .find({
       $or: [
         { name: { $regex: searchText, $options: "i" } }, // Case-insensitive search
@@ -54,9 +55,23 @@ const searchUser = async (searchText) => {
   return result;
 };
 
+// Create indexes once during database initialization
+const createIndexes = async () => {
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  
+  const indexKeys = { name: 1, email: 1 };
+  const indexOption = { name: 'nameEmail' };
+  await userCollection.createIndex(indexKeys, indexOption);
+};
+createIndexes().catch(console.error);
+
+
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
   searchUser,
+  createIndexes
 };
