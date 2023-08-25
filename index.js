@@ -8,6 +8,7 @@ const notificationRouter = require("./src/routes/notificationRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 const blogRoutes = require("./src/routes/blogRoutes");
 const feedbackRoutes = require("./src/routes/feedbackRoutes");
+const grammarRoutes = require("./src/routes/grammarRoutes");
 app.use(cors());
 app.use(express.json());
 
@@ -21,6 +22,7 @@ app.use("/notifications", notificationRouter);
 app.use("/users", userRoutes);
 app.use("/blogs", blogRoutes);
 app.use("/reviews", feedbackRoutes);
+app.use("/grammars", grammarRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
