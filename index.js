@@ -7,6 +7,7 @@ const JwtRoutes = require("./src/routes/JwtRoutes");
 const notificationRouter = require("./src/routes/notificationRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 const blogRoutes = require("./src/routes/blogRoutes");
+const feedbackRoutes = require("./src/routes/feedbackRoutes");
 app.use(cors());
 app.use(express.json());
 
@@ -19,6 +20,7 @@ app.use("/json-web-token", JwtRoutes);
 app.use("/notifications", notificationRouter);
 app.use("/users", userRoutes);
 app.use("/blogs", blogRoutes);
+app.use("/reviews", feedbackRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
