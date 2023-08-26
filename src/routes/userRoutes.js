@@ -25,6 +25,19 @@ router.get("/user", async (req, res) => {
   }
 });
 
+// get single user
+
+router.get("/singleUser", async (req, res) => {
+  const email = req.query.email;
+  const query = { email: email };
+  try {
+    const result = await userController.getSingleUser(query);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: "Internal Server Error", error });
+  }
+});
+
 //update user
 
 router.patch("/user/:email", async (req, res) => {
