@@ -75,14 +75,23 @@ const getSingleUser = async (query) => {
   return userData;
 };
 
-// check admin users
+//  user delete
 
-const adminCheck =  async(query) =>{
+const deleteUser = async (query) => {
   const client = await connectToMongoDB();
   const userCollection = client.db("LangMaster").collection("users");
-  const user = await userCollection.findOne(query) 
-  return user
-}
+  const result = userCollection.deleteOne(query);
+  return result;
+};
+
+// check admin users
+
+const adminCheck = async (query) => {
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  const user = await userCollection.findOne(query);
+  return user;
+};
 
 module.exports = {
   createUser,
@@ -91,5 +100,6 @@ module.exports = {
   searchUser,
   createIndexes,
   getSingleUser,
-  adminCheck
+  adminCheck,
+  deleteUser
 };
