@@ -75,6 +75,15 @@ const getSingleUser = async (query) => {
   return userData;
 };
 
+// check admin users
+
+const adminCheck =  async(query) =>{
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  const user = await userCollection.findOne(query) 
+  return user
+}
+
 module.exports = {
   createUser,
   getUser,
@@ -82,4 +91,5 @@ module.exports = {
   searchUser,
   createIndexes,
   getSingleUser,
+  adminCheck
 };

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
-
 // user create post oparetion
 router.post("/user", async (req, res) => {
   try {
@@ -59,6 +58,24 @@ router.get("/user/:searchText", async (req, res) => {
     res.send(result);
   } catch (error) {
     res.status(500).send({ error: "Search not working", error });
+  }
+});
+
+// check admin by user
+
+router.get("/admin", async (req, res) => {
+  try {
+    const email = req.query.email;
+    // if (req.decoded !== email) {
+    //   res.send({ admin: false });
+    // }
+
+    const query = { email: email };
+    const user = await userController.adminCheck(query);
+    const isAdmin = { admin: user?.role == "admin" };
+    res.send(isAdmin);
+  } catch (error) {
+    res.status(500).send({ error: "there was a server side error", error });
   }
 });
 
