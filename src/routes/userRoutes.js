@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const router = express.Router();
 const userController = require("../controllers/userController");
 // user create post oparetion
@@ -63,16 +64,18 @@ router.get("/user/:searchText", async (req, res) => {
 
 // delete user data
 
-router.delete("/user", async (req, res) => {
+router.delete("/user/:id", async (req, res) => {
   try {
-    const email = req.query.email;
-    const query = { email: email };
+    const id = req.params.id;
+    console.log(id);
+    const query = { _id: new ObjectId(id) };
     const result = await userController.deleteUser(query);
-    res.status(200).send({ message: "user delete successfull", data: result });
+    res.status(200).send({ message: "user delete successful", data: result });
   } catch (error) {
     res.status(500).send({ error: "Search not working", error });
   }
 });
+
 
 // check admin by user
 

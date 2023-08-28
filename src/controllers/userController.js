@@ -80,7 +80,7 @@ const getSingleUser = async (query) => {
 const deleteUser = async (query) => {
   const client = await connectToMongoDB();
   const userCollection = client.db("LangMaster").collection("users");
-  const result = userCollection.deleteOne(query);
+  const result = await userCollection.deleteOne(query);
   return result;
 };
 
