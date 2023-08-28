@@ -77,6 +77,22 @@ router.delete("/user/:id", async (req, res) => {
 });
 
 
+// created admin
+
+router.patch('users/admin/:id', async(req, res) =>{
+  const id = req.params.id;
+  const filter = { _id: new ObjectId(id)};
+  const updateDoc = {
+    $set: {
+      role: 'admin'
+    },
+  };
+
+  const result = await usersCollection.updateOne(filter, updateDoc);
+  res.send(result);
+})
+
+
 // check admin by user
 
 router.get("/admin", async (req, res) => {
@@ -94,5 +110,6 @@ router.get("/admin", async (req, res) => {
     res.status(500).send({ error: "there was a server side error", error });
   }
 });
+
 
 module.exports = router;
