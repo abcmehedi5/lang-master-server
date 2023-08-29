@@ -20,7 +20,7 @@ router.post("/questions", async (req, res) => {
 });
 
 // get all data form learningQuestionsController
-router.get("/questions", verifyJWT, async (req, res) => {
+router.get("/questions", async (req, res) => {
   try {
     const allQuestions =
       await learningQuestionsController.getAllLearningQuestions();
