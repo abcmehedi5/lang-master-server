@@ -93,6 +93,15 @@ const adminCheck = async (query) => {
   return user;
 };
 
+// // admin make user role
+
+const makeAdmin = async (query, updateData) => {
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  const result = userCollection.updateOne(query, updateData);
+  return result;
+};
+
 module.exports = {
   createUser,
   getUser,
@@ -102,4 +111,5 @@ module.exports = {
   getSingleUser,
   adminCheck,
   deleteUser,
+  makeAdmin,
 };
