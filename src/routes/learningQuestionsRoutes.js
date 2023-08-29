@@ -53,8 +53,11 @@ router.post("/unitfinished/:id", async (req, res) => {
     console.log("working", number);
     const numberCalculate = parseInt(number) + 1;
     const unitNumber = numberCalculate.toString();
-   const restul =  await learningQuestionsController.finishedUnit(userQuery, unitNumber);
-   console.log(restul);
+    const restul = await learningQuestionsController.finishedUnit(
+      userQuery,
+      unitNumber
+    );
+    console.log(restul);
     res.status(200).send(restul);
   } catch (error) {
     res.status(500).send({

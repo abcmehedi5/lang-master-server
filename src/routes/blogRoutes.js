@@ -25,4 +25,16 @@ router.get("/blog/:id", async (req, res) => {
     res.status(500).send({ error: "internal server error", error });
   }
 });
+
+// create post api
+
+router.post("/blog", async (req, res) => {
+  try {
+    const data = req.body;
+    await blogController.createBlog(data);
+    res.status(200).send({ message: "Blog Post successfull" });
+  } catch (error) {
+    res.status(500).send({ error: "internal server error", error });
+  }
+});
 module.exports = router;
