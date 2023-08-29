@@ -101,5 +101,5 @@ module.exports = {
   createIndexes,
   getSingleUser,
   adminCheck,
-  deleteUser
+  deleteUser,
 };
