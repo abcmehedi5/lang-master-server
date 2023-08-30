@@ -22,9 +22,8 @@ const getUser = async () => {
   return result;
 };
 
-//update user with quiz result
+//update user with learning point result
 const updateUser = async (userEmail, score) => {
-  console.log("controler score", score);
   const client = await connectToMongoDB();
   const userCollection = client.db("LangMaster").collection("users");
   const updateResult = await userCollection.updateOne(
@@ -101,5 +100,5 @@ module.exports = {
   createIndexes,
   getSingleUser,
   adminCheck,
-  deleteUser
+  deleteUser,
 };
