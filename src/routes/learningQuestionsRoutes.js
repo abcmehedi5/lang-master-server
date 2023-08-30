@@ -35,9 +35,12 @@ router.get("/questions", async (req, res) => {
 
 router.post("/questions-create", async (res, req) => {
   try {
-    //route
+    const data = req.body;
+    await learningQuestionsController.unitAdd(data);
+    res.status(200).send({ message: "unit added successfull" });
   } catch (error) {
-    // error
+    console.error("Error fetching learning questions:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
