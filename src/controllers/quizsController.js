@@ -7,6 +7,16 @@ const getQuizs = async () => {
   return notificationData;
 };
 
+// create quizes
+
+const createQuize = async (data) => {
+  const client = await connectToMongoDB();
+  const quizsCollection = client.db("LangMaster").collection("quizs");
+  const result = quizsCollection.insertOne(data);
+  return result;
+};
+
 module.exports = {
   getQuizs,
+  createQuize,
 };

@@ -91,4 +91,22 @@ router.get("/admin", async (req, res) => {
   }
 });
 
+// admin make user role
+router.patch("/makeAdmin", async (req, res) => {
+  try {
+    const email = req.query.email;
+    const makeData = req.body.role;
+    const query = { email: email };
+    const updateData = {
+      $set: {
+        role: makeData, 
+      },
+    };
+    await userController.makeAdmin(query, updateData);
+    res.status(200).send({ message: "Admin Make successfull" });
+  } catch (error) {
+    res.status(500).send({ error: "Admin Make not working", error });
+  }
+});
+
 module.exports = router;

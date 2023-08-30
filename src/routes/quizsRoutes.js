@@ -12,4 +12,16 @@ router.get("/quiz", async (req, res) => {
   }
 });
 
+//  quizes create
+
+router.post("/quiz", async (req, res) => {
+  const data = req.body;
+  try {
+    await quizsController.createQuize(data);
+    res.status(200).send({ Message: "Quize Post Successfull" });
+  } catch (error) {
+    res.status(500).send({ error: "Quize Post Internal Server Error" });
+  }
+});
+
 module.exports = router;

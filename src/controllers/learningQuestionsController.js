@@ -33,8 +33,30 @@ const unitAdd = async () => {
 
 // unit add api Contoller end -------------------------------
 
+// finished unit api  start ----------------------------------------
+
+const finishedUnit = async (userQuery, unitNumber) => {
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  // Check if the unitNumber is already in the unit array
+  const userFind = await userCollection.findOne(userQuery);
+  if (userFind && userFind.unit.includes(unitNumber)) {
+    const Message = { message: "তুমি এই Unit এর আগে একবার শেষ করেছো ।" };
+    return Message;
+  }
+  // If the unitNumber is not in the array, push it
+  await userCollection.updateOne(userQuery, {
+    $push: { unit: unitNumber },
+  });
+  return {
+    message: `তোমার ${unitNumber} ইউনিট Unlcok করা হয়েছে। Next Button ক্লিক করে পয়েন্ট সংগ্রহ করুন ধন্যবাদ ! `,
+  };
+};
+// finished unit api end ----------------------------------------
+
 module.exports = {
   getAllLearningQuestions,
   createLearningQuestion,
   unitAdd,
+  finishedUnit,
 };
