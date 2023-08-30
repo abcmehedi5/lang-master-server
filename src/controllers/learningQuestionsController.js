@@ -24,11 +24,13 @@ const createLearningQuestion = async (questionData) => {
 
 // unit add api Controller start ----------------------------
 
-const unitAdd = async () => {
+const unitAdd = async (data) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
     .collection("questions");
+  const result = await learningQuestionsCollection.insertOne(data);
+  return result;
 };
 
 // unit add api Contoller end -------------------------------
