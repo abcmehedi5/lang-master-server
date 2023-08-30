@@ -110,4 +110,5 @@ module.exports = {
   getSingleUser,
   adminCheck,
   deleteUser,
+  makeAdmin,
 };
