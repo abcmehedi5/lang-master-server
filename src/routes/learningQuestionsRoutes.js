@@ -37,7 +37,7 @@ router.post("/questions-create", async (res, req) => {
   try {
     const data = req.body;
     await learningQuestionsController.unitAdd(data);
-    res.status(200).send({ message: "unit added successfull" });
+    res.status(200).send({ message: "unit post successfull" });
   } catch (error) {
     console.error("Error fetching learning questions:", error);
     res.status(500).send("Internal Server Error");
