@@ -37,12 +37,11 @@ router.get("/singleUser", async (req, res) => {
   }
 });
 
-//update user
+//update user learning points
 
 router.patch("/user/:email", async (req, res) => {
   const userEmail = req.params.email;
   const score = req.body.score;
-  console.log("useremail", userEmail, score);
   try {
     const result = await userController.updateUser(userEmail, score);
     res.send(result);
