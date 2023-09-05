@@ -26,8 +26,36 @@ const createBlog = async (data) =>{
   return result
 }
 
+
+
+
+
+// Increment the like count for a blog post
+const updateLikeCount = async (query, newLikeCount) => {
+  const client = await connectToMongoDB();
+  const blogCollection = client.db("LangMaster").collection("blogs");
+  // Update the like count in the database
+  const result =  blogCollection.updateOne(query, { $set: { like: newLikeCount } });
+  return result;
+};
+
+
+// added user info after clicking on click
+const storeLikedUser = async (query, userData) => {
+  const client = await connectToMongoDB();
+  const blogCollection = client.db("LangMaster").collection("blogs");
+  // Use $push to add user information to the likedUsers array
+  const result = blogCollection.updateOne(query, { $push: { likedUsers: userData } });
+  return result;
+};
+
+
+
+
 module.exports = {
   getBlog,
   getBlogById,
-  createBlog
+  createBlog,
+  updateLikeCount,
+  storeLikedUser,
 };
