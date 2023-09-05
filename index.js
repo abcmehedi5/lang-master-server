@@ -13,7 +13,7 @@ const quizRoutes = require("./src/routes/quizsRoutes");
 const paymentRoutes = require("./src/routes/paymentRoutes");
 const adminRoutes = require("./src/routes/adminRoutes");
 const makeUserRoutes = require("./src/routes/makeUserRoutes");
-
+const bookRoutes = require("./src/routes/bookRoutes");
 app.use(cors());
 app.use(express.json());
 
@@ -32,6 +32,8 @@ app.use("/quizs", quizRoutes);
 app.use("/payment", paymentRoutes);
 app.use("/admins", adminRoutes);
 app.use("/makeUsers", makeUserRoutes);
+app.use("/books", bookRoutes);
+// app.use("/unitMake", unitAddRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
