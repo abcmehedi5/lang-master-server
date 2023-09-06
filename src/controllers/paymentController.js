@@ -41,8 +41,6 @@ const getPaymentEmail = async (query) => {
   return result;
 };
 
-
-
 // delete payment
 const deletePayment = async (query) => {
   const client = await connectToMongoDB();
@@ -55,5 +53,5 @@ module.exports = {
   savePaymentInfo,
   getPayment,
   deletePayment,
-  getPaymentEmail
+  getPaymentEmail,
 };
