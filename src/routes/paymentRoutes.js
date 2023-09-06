@@ -3,9 +3,9 @@ const nodemailer = require("nodemailer");
 const router = express.Router();
 const stripe = require("stripe")(`${process.env.PAYMENT_SECRET_KEY}`);
 const paymentController = require("./../controllers/paymentController");
+const { ObjectId } = require('mongodb');
 
 // nodemailer function
-
 const sendMail = (emailData, emailAddress) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -64,6 +64,46 @@ router.post("/payment-info", async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send({ message: "error on storing data" });
+  }
+});
+
+
+// Get all payments data---------------------
+router.get("/payment", async (req, res) => {
+  try {
+    const paymentData = await paymentController.getPayment();
+    res.status(200).send(paymentData);
+  } catch (error) {
+    res.status(500).send({ error: "Internal server error", details: error });
+  }
+});
+
+
+// Get single payment data by email-------------------
+router.get("/paymentUser", async (req, res) => {
+  try {
+    const { email } = req.query; 
+    const query = { email }; 
+   
+    const paymentData = await paymentController.getPaymentEmail(query);
+    res.status(200).send(paymentData);
+  } catch (error) {
+    res.status(500).send({ error: "Internal server error", details: error });
+  }
+});
+
+
+// delete notification
+router.delete("/payment/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const query = { _id: new ObjectId(id) };
+    const paymentDelete = await paymentController.deletePayment(query);
+    res
+      .status(200)
+      .send({ message: "payment deleted", data: paymentDelete });
+  } catch (error) {
+    res.status(500).send({ error: "Payment Internal Server Error" });
   }
 });
 

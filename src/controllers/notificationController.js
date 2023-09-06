@@ -20,7 +20,6 @@ const getNotification = async (query) => {
 };
 
 // delete notification
-
 const deleteNotification = async (query) => {
   const client = await connectToMongoDB();
   const notificationCollection = client
