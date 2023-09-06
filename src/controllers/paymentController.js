@@ -25,6 +25,35 @@ const savePaymentInfo = async (paymentInfo) => {
   return result;
 };
 
+// Get all Payment data ------------
+const getPayment = async () => {
+  const client = await connectToMongoDB();
+  const paymentCollection = client.db("LangMaster").collection("payments");
+  const result = await paymentCollection.find().toArray();
+  return result;
+};
+// Get all Payment email ------------
+const getPaymentEmail = async (query) => {
+  const client = await connectToMongoDB();
+  const paymentCollection = client.db("LangMaster").collection("payments");
+
+  const result = await paymentCollection.find(query).toArray();
+  return result;
+};
+
+
+
+// delete payment
+const deletePayment = async (query) => {
+  const client = await connectToMongoDB();
+  const paymentCollection = client.db("LangMaster").collection("payments");
+  const result = await paymentCollection.deleteOne(query);
+  return result;
+};
+
 module.exports = {
   savePaymentInfo,
+  getPayment,
+  deletePayment,
+  getPaymentEmail
 };

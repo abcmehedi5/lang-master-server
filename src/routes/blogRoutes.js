@@ -4,7 +4,7 @@ const blogController = require("../controllers/blogController");
 const { ObjectId } = require("mongodb");
 
 // get all blogs data
-router.get("/blog", async (req, res) => {
+router.get("/payment", async (req, res) => {
   try {
     const blogData = await blogController.getBlog();
     res.status(200).send(blogData);
@@ -28,7 +28,7 @@ router.get("/blog/:id", async (req, res) => {
 
 // create post api
 
-router.post("/blog", async (req, res) => {
+router.post("/payment", async (req, res) => {
   try {
     const data = req.body;
     await blogController.createBlog(data);
