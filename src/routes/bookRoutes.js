@@ -23,6 +23,16 @@ router.get("/bought-book", async (req, res) => {
   }
 });
 
+// get all bought books
+router.get("/bought-books", async (req, res) => {
+  try {
+    const result = await bookController.getAllBoughtBooks();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: "error getting all books", error });
+  }
+});
+
 // post bought books on db
 router.post("/bought-book", async (req, res) => {
   const bookInfo = req.body.bookInfo;
