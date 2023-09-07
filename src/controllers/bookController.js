@@ -17,6 +17,19 @@ const getUserBooks = async (email) => {
   return result;
 };
 
+// get all bought books
+const getAllBoughtBooks = async () => {
+  const client = await connectToMongoDB();
+  const boughtBooksCollection = client
+    .db("LangMaster")
+    .collection("bought-books");
+  const result = await boughtBooksCollection
+    .find()
+    .sort({ date: -1 })
+    .toArray();
+  return result;
+};
+
 //post bought books in db
 const postBoughtBooks = async (bookInfo) => {
   const client = await connectToMongoDB();
@@ -28,5 +41,6 @@ const postBoughtBooks = async (bookInfo) => {
 module.exports = {
   getAllBooks,
   getUserBooks,
+  getAllBoughtBooks,
   postBoughtBooks,
 };

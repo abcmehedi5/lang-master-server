@@ -3,6 +3,7 @@ const router = express.Router();
 const learningQuestionsController = require("../controllers/learningQuestionsController");
 const verifyJWT = require("../middleware/verifyJWT");
 const { ObjectId } = require("mongodb");
+const { route } = require("./paymentRoutes");
 
 // Add a new route for POST requests to create a question
 router.post("/questions", async (req, res) => {
@@ -70,4 +71,12 @@ router.post("/unitfinished/:id", async (req, res) => {
 });
 
 // unit fnished api end ----------------------
+
+// certificate get system
+router.get("/certificate", async (req, res) => {
+  const queryParameters = req.query; // Retrieve query parameters from the request
+  await learningQuestionsController.certificateController(queryParameters);
+  console.log(queryParameters);
+});
+
 module.exports = router;

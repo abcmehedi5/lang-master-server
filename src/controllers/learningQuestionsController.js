@@ -56,9 +56,19 @@ const finishedUnit = async (userQuery, unitNumber) => {
 };
 // finished unit api end ----------------------------------------
 
+const certificateController = async (queryParameters) => {
+  const client = await connectToMongoDB();
+  const learningQuestionsCollection = client
+    .db("LangMaster")
+    .collection("questions");
+  const result = await learningQuestionsCollection.find().toArray();
+  console.log(result);
+};
+
 module.exports = {
   getAllLearningQuestions,
   createLearningQuestion,
   unitAdd,
   finishedUnit,
+  certificateController,
 };
