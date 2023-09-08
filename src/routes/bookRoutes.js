@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bookController = require("../controllers/bookController");
-
+const { ObjectId } = require("mongodb");
 // getting all books
 router.get("/book", async (req, res) => {
   try {
@@ -33,6 +33,9 @@ router.get("/bought-books", async (req, res) => {
   }
 });
 
+
+
+
 // post bought books on db
 router.post("/bought-book", async (req, res) => {
   const bookInfo = req.body.bookInfo;
@@ -41,6 +44,21 @@ router.post("/bought-book", async (req, res) => {
     res.send(result);
   } catch (error) {
     res.status(500).send({ error: "error posting bought books", error });
+  }
+});
+
+
+// delete bought-books --------------
+router.delete("/bought-books/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const query = { _id: new ObjectId(id) };
+    const bookDelete = await bookController.boughtBookDelete(query);
+    res
+      .status(200)
+      .send({ message: "Book deleted", data: bookDelete });
+  } catch (error) {
+    res.status(500).send({ error: "Book Internal Server Error" });
   }
 });
 

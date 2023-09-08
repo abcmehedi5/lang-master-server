@@ -37,10 +37,21 @@ const postBoughtBooks = async (bookInfo) => {
   const result = await booksCollection.insertOne(bookInfo);
   return result;
 };
+// delete boughtBookDelete
+const boughtBookDelete = async (query) => {
+  const client = await connectToMongoDB();
+  const booksCollection = client.db("LangMaster").collection("bought-books");
+  const result = await booksCollection.deleteOne(query);
+  return result;
+};
+
+
+
 
 module.exports = {
   getAllBooks,
   getUserBooks,
   getAllBoughtBooks,
   postBoughtBooks,
+  boughtBookDelete
 };
