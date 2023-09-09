@@ -43,20 +43,34 @@ router.patch("/user/:email", async (req, res) => {
   const userEmail = req.params.email;
   const score = req.body.score;
   try {
-    const result = await userController.updateUser(userEmail, score);
+    const result = await userController.updateUserPoints(userEmail, score);
     res.send(result);
   } catch (error) {
     res.status(500).send({ error: "Internal Server Error", error });
   }
 });
 
+// update user profile data
+router.patch("/update-user/:email", async (req, res) => {
+  const userEmail = req.params.email;
+  const updatedData = req.body.updatedData;
+  console.log("updated data", updatedData);
+  try {
+    const result = await userController.updateUser(userEmail, updatedData);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: "Internal Server Error", error });
+  }
+});
+
+// user search on user management route
 router.get("/user/:searchText", async (req, res) => {
   const searchText = req.params.searchText;
   try {
     const result = await userController.searchUser(searchText);
     res.send(result);
   } catch (error) {
-    res.status(500).send({ error: "Search not working", error });
+    res.status(500).send({ error: "User Search not working", error });
   }
 });
 
@@ -99,7 +113,7 @@ router.patch("/makeAdmin", async (req, res) => {
     const query = { email: email };
     const updateData = {
       $set: {
-        role: makeData, 
+        role: makeData,
       },
     };
     await userController.makeAdmin(query, updateData);
