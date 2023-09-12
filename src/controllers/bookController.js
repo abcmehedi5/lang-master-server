@@ -1,5 +1,16 @@
 const connectToMongoDB = require("../config/db");
 
+// Add or create book from  Admin DashBoard
+
+const createBook = async(addBook)=> {
+
+  const client = await connectToMongoDB()
+  const booksCollection = client.db('LangMaster').collection('books')
+  const result = await booksCollection.insertOne(addBook)
+  return result
+}
+
+
 // get all books from db
 const getAllBooks = async () => {
   const client = await connectToMongoDB();
@@ -53,5 +64,6 @@ module.exports = {
   getUserBooks,
   getAllBoughtBooks,
   postBoughtBooks,
-  boughtBookDelete
+  boughtBookDelete,
+  createBook
 };

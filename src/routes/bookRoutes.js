@@ -2,6 +2,25 @@ const express = require("express");
 const router = express.Router();
 const bookController = require("../controllers/bookController");
 const { ObjectId } = require("mongodb");
+
+
+// Post or Add All Books
+
+router.post('/addBook', async(req,res)=>{
+const addBook = req.body 
+ 
+try {
+  await bookController.createBook(addBook);
+  res.status(200).send({ Message: "Book Post Successfull" });
+} catch (error) {
+  res.status(500).send({ error: "Book Post Internal Server Error" });
+}
+
+
+})
+
+
+
 // getting all books
 router.get("/book", async (req, res) => {
   try {
