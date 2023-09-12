@@ -65,10 +65,24 @@ const certificateController = async (queryParameters) => {
   console.log(result);
 };
 
+// add lesson and question dynamically start -----------------------------
+
+const addLesson = async (query) => {
+  const client = await connectToMongoDB();
+  const learningQuestionsCollection = client
+    .db("LangMaster")
+    .collection("questions");
+  const result = learningQuestionsCollection.findOne(query);
+  return result;
+};
+
+// add lesson and question dynamically end -------------------------------
+
 module.exports = {
   getAllLearningQuestions,
   createLearningQuestion,
   unitAdd,
   finishedUnit,
   certificateController,
+  addLesson,
 };

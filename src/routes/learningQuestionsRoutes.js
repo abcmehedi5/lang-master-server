@@ -79,4 +79,15 @@ router.get("/certificate", async (req, res) => {
   console.log(queryParameters);
 });
 
+// add lesson and question dynamically start -----------------------------
+
+router.get("/add-lesson/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: new ObjectId(id) };
+  const respons = await learningQuestionsController.addLesson(query);
+  res.send(respons);
+});
+
+// add lesson and question dynamically end -------------------------------
+
 module.exports = router;
