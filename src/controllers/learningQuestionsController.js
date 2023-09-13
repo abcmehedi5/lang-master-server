@@ -83,6 +83,21 @@ const addLesson = async (unitId, lessonData) => {
   return result;
 };
 
+// -------------- push quize data inside quize array ----------------
+// Add a quiz to a lesson
+// const addQuiz = async (lessonId, quizData) => {
+//   const client = await connectToMongoDB();
+//   const learningQuestionsCollection = client.db("LangMaster").collection("questions");
+  
+
+//   const result = await learningQuestionsCollection.updateOne(
+//     { "lessons._id": new ObjectId(lessonId) }, // Find the lesson using its _id
+//     { $push: { "lessons.$.quiz": quizData } } // Push the new quiz into the lesson's quiz array
+//   );
+
+//   return result;
+// };
+
 
 module.exports = {
   getAllLearningQuestions,

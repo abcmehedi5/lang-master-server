@@ -98,6 +98,24 @@ router.post("/add-lesson/:id", async (req, res) => {
   }
 });
 
+// -------------- push quize data inside quize array ----------------
+// Add a quiz to a lesson
+// router.post("/add-quiz/:lessonId", async (req, res) => {
+//   try {
+//     const lessonId = req.params.lessonId;
+//     const quizData = req.body.newQuiz; // Assuming you're sending the quiz data in the request body
+
+//     // Call the function to add the quiz to the lesson
+//     const updatedLesson = await learningQuestionsController.addQuiz(lessonId, quizData);
+
+//     res.status(200).json(updatedLesson);
+//   } catch (error) {
+//     console.error("Error adding quiz:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+
 
 // unit fnished api end ----------------------
 module.exports = router;
