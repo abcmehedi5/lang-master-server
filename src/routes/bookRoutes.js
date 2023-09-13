@@ -19,6 +19,20 @@ try {
 
 })
 
+// delete a book from all book 
+
+router.delete('/deleteBook/:id', async(req,res)=> {
+  const id = req.params.id 
+  try{
+    const query = {_id : new ObjectId(id)}
+    const deleteBook = await bookController.deleteBook(query)
+    res.status(200).send({ message: "Book deleted", data: deleteBook });
+  }catch (error) {
+    res.status(500).send({ error: "Book Internal Server Error" });
+  }
+
+})
+
 
 
 // getting all books
