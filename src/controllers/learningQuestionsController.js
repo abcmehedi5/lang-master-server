@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const connectToMongoDB = require("../config/db");
 //  gate all question
 const getAllLearningQuestions = async () => {
@@ -56,9 +57,38 @@ const finishedUnit = async (userQuery, unitNumber) => {
 };
 // finished unit api end ----------------------------------------
 
+// get a single unit data ----------------------------------
+const singleUnit = async (unitId) => {
+  const client = await connectToMongoDB();
+  const learningQuestionsCollection = client
+    .db("LangMaster")
+    .collection("questions");
+  const result = await learningQuestionsCollection.findOne(unitId);
+  return result;
+};
+
+// push lesson data inside lesson array ------------------
+
+const addLesson = async (unitId, lessonData) => {
+  const client = await connectToMongoDB();
+  const learningQuestionsCollection = client
+    .db("LangMaster")
+    .collection("questions");
+
+  const result = await learningQuestionsCollection.updateOne(
+    { _id: new ObjectId(unitId) },
+    { $push: { lessons: lessonData } }
+  );
+
+  return result;
+};
+
+
 module.exports = {
   getAllLearningQuestions,
   createLearningQuestion,
   unitAdd,
   finishedUnit,
+  singleUnit,
+  addLesson,
 };

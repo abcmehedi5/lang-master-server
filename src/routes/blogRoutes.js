@@ -4,7 +4,7 @@ const blogController = require("../controllers/blogController");
 const { ObjectId } = require("mongodb");
 
 // get all blogs data
-router.get("/payment", async (req, res) => {
+router.get("/blog", async (req, res) => {
   try {
     const blogData = await blogController.getBlog();
     res.status(200).send(blogData);
@@ -73,10 +73,6 @@ router.put("/blog/:id/like", async (req, res) => {
     res.status(500).send({ error: "Internal server error", error });
   }
 });
-
-
-
-
 
 
 module.exports = router;

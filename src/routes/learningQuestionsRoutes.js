@@ -69,5 +69,35 @@ router.post("/unitfinished/:id", async (req, res) => {
   }
 });
 
+
+// get a single unit data ----------------------------------
+router.get("/questions/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const unit = await learningQuestionsController.singleUnit(query);
+    res.status(200).send(unit);
+  } catch (error) {
+    console.error("Error fetching unit data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// push lesson data inside lesson array ------------------
+
+router.post("/add-lesson/:id", async (req, res) => {
+  try {
+    const unitId = req.params.id;
+    const lessonData = req.body; // Assuming you're sending the lesson data in the request body
+    const updatedUnit = await learningQuestionsController.addLesson(unitId, lessonData);
+    res.status(200).json(updatedUnit);
+  } catch (error) {
+    console.error("Error adding lesson:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 // unit fnished api end ----------------------
 module.exports = router;
