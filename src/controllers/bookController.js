@@ -10,6 +10,15 @@ const createBook = async(addBook)=> {
   return result
 }
 
+// delete a book from all books
+
+const deleteBook = async(query)=> {
+const   client = await connectToMongoDB()
+const booksCollection = client.db('LangMaster').collection('books')
+const result = await booksCollection.deleteOne(query)
+return result
+}
+
 
 // get all books from db
 const getAllBooks = async () => {
@@ -65,5 +74,6 @@ module.exports = {
   getAllBoughtBooks,
   postBoughtBooks,
   boughtBookDelete,
-  createBook
+  createBook,
+  deleteBook
 };
