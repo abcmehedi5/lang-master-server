@@ -2,23 +2,21 @@ const connectToMongoDB = require("../config/db");
 
 // Add or create book from  Admin DashBoard
 
-const createBook = async(addBook)=> {
-
-  const client = await connectToMongoDB()
-  const booksCollection = client.db('LangMaster').collection('books')
-  const result = await booksCollection.insertOne(addBook)
-  return result
-}
+const createBook = async (addBook) => {
+  const client = await connectToMongoDB();
+  const booksCollection = client.db("LangMaster").collection("books");
+  const result = await booksCollection.insertOne(addBook);
+  return result;
+};
 
 // delete a book from all books
 
-const deleteBook = async(query)=> {
-const   client = await connectToMongoDB()
-const booksCollection = client.db('LangMaster').collection('books')
-const result = await booksCollection.deleteOne(query)
-return result
-}
-
+const deleteBook = async (query) => {
+  const client = await connectToMongoDB();
+  const booksCollection = client.db("LangMaster").collection("books");
+  const result = await booksCollection.deleteOne(query);
+  return result;
+};
 
 // get all books from db
 const getAllBooks = async () => {
@@ -65,9 +63,6 @@ const boughtBookDelete = async (query) => {
   return result;
 };
 
-
-
-
 module.exports = {
   getAllBooks,
   getUserBooks,
@@ -75,5 +70,5 @@ module.exports = {
   postBoughtBooks,
   boughtBookDelete,
   createBook,
-  deleteBook
+  deleteBook,
 };
