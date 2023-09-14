@@ -136,6 +136,15 @@ router.get("/add-lesson/:id", async (req, res) => {
   res.send(respons);
 });
 
+
+// -------------- push quize data inside lesson quize array ----------------
+
+
+router.get("/addQuize" , (req, res) =>{
+  const data = req.body
+  console.log("working " , data);
+})
+
 // add lesson and question dynamically end -------------------------------
 
 module.exports = router;

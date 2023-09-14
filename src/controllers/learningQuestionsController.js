@@ -83,7 +83,7 @@ const addLesson = async (unitId, lessonData) => {
   return result;
 };
 
-// -------------- push quize data inside quize array ----------------
+// -------------- push quize data inside lesson quize array ----------------
 // Add a quiz to a lesson
 // const addQuiz = async (lessonId, quizData) => {
 //   const client = await connectToMongoDB();
