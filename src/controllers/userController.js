@@ -23,7 +23,7 @@ const getUser = async () => {
 };
 
 //update user with learning point result
-const updateUser = async (userEmail, score) => {
+const updateUserPoints = async (userEmail, score) => {
   const client = await connectToMongoDB();
   const userCollection = client.db("LangMaster").collection("users");
   const updateResult = await userCollection.updateOne(
@@ -36,6 +36,26 @@ const updateUser = async (userEmail, score) => {
   );
 
   return updateResult;
+};
+
+// update user profile data
+const updateUser = async (userEmail, updatedData) => {
+  const client = await connectToMongoDB();
+  const userCollection = client.db("LangMaster").collection("users");
+  const updateUser = await userCollection.updateOne(
+    { email: userEmail },
+    {
+      $set: {
+        name: updatedData.name,
+        bio: updatedData.bio,
+        birthday: updatedData.birthday,
+        address: updatedData.address,
+        phoneNumber: updatedData.phoneNumber,
+        gender: updatedData.gender,
+      },
+    }
+  );
+  return updateUser;
 };
 
 //get user by search on user management page
@@ -104,6 +124,7 @@ const makeAdmin = async (query, updateData) => {
 module.exports = {
   createUser,
   getUser,
+  updateUserPoints,
   updateUser,
   searchUser,
   createIndexes,

@@ -17,7 +17,6 @@ const stripe = require("stripe")(`${process.env.PAYMENT_SECRET_KEY}`);
 // };
 
 // save payment information to db
-
 const savePaymentInfo = async (paymentInfo) => {
   const client = await connectToMongoDB();
   const paymentCollection = client.db("LangMaster").collection("payments");
@@ -32,6 +31,7 @@ const getPayment = async () => {
   const result = await paymentCollection.find().toArray();
   return result;
 };
+
 // Get all Payment email ------------
 const getPaymentEmail = async (query) => {
   const client = await connectToMongoDB();
@@ -40,7 +40,6 @@ const getPaymentEmail = async (query) => {
   const result = await paymentCollection.find(query).toArray();
   return result;
 };
-
 
 
 // delete payment
@@ -55,5 +54,5 @@ module.exports = {
   savePaymentInfo,
   getPayment,
   deletePayment,
-  getPaymentEmail
+  getPaymentEmail,
 };

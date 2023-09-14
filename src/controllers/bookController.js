@@ -1,5 +1,25 @@
 const connectToMongoDB = require("../config/db");
 
+// Add or create book from  Admin DashBoard
+
+const createBook = async(addBook)=> {
+
+  const client = await connectToMongoDB()
+  const booksCollection = client.db('LangMaster').collection('books')
+  const result = await booksCollection.insertOne(addBook)
+  return result
+}
+
+// delete a book from all books
+
+const deleteBook = async(query)=> {
+const   client = await connectToMongoDB()
+const booksCollection = client.db('LangMaster').collection('books')
+const result = await booksCollection.deleteOne(query)
+return result
+}
+
+
 // get all books from db
 const getAllBooks = async () => {
   const client = await connectToMongoDB();
@@ -17,6 +37,19 @@ const getUserBooks = async (email) => {
   return result;
 };
 
+// get all bought books
+const getAllBoughtBooks = async () => {
+  const client = await connectToMongoDB();
+  const boughtBooksCollection = client
+    .db("LangMaster")
+    .collection("bought-books");
+  const result = await boughtBooksCollection
+    .find()
+    .sort({ date: -1 })
+    .toArray();
+  return result;
+};
+
 //post bought books in db
 const postBoughtBooks = async (bookInfo) => {
   const client = await connectToMongoDB();
@@ -24,9 +57,23 @@ const postBoughtBooks = async (bookInfo) => {
   const result = await booksCollection.insertOne(bookInfo);
   return result;
 };
+// delete boughtBookDelete
+const boughtBookDelete = async (query) => {
+  const client = await connectToMongoDB();
+  const booksCollection = client.db("LangMaster").collection("bought-books");
+  const result = await booksCollection.deleteOne(query);
+  return result;
+};
+
+
+
 
 module.exports = {
   getAllBooks,
   getUserBooks,
+  getAllBoughtBooks,
   postBoughtBooks,
+  boughtBookDelete,
+  createBook,
+  deleteBook
 };

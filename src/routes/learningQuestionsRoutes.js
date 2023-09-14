@@ -3,6 +3,7 @@ const router = express.Router();
 const learningQuestionsController = require("../controllers/learningQuestionsController");
 const verifyJWT = require("../middleware/verifyJWT");
 const { ObjectId } = require("mongodb");
+const { route } = require("./paymentRoutes");
 
 // Add a new route for POST requests to create a question
 router.post("/questions", async (req, res) => {
@@ -118,4 +119,23 @@ router.post("/add-lesson/:id", async (req, res) => {
 
 
 // unit fnished api end ----------------------
+
+// certificate get system
+router.get("/certificate", async (req, res) => {
+  const queryParameters = req.query; // Retrieve query parameters from the request
+  await learningQuestionsController.certificateController(queryParameters);
+  console.log(queryParameters);
+});
+
+// add lesson and question dynamically start -----------------------------
+
+router.get("/add-lesson/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: new ObjectId(id) };
+  const respons = await learningQuestionsController.addLesson(query);
+  res.send(respons);
+});
+
+// add lesson and question dynamically end -------------------------------
+
 module.exports = router;

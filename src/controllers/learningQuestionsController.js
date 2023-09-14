@@ -57,46 +57,14 @@ const finishedUnit = async (userQuery, unitNumber) => {
 };
 // finished unit api end ----------------------------------------
 
-// get a single unit data ----------------------------------
-const singleUnit = async (unitId) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
     .collection("questions");
-  const result = await learningQuestionsCollection.findOne(unitId);
-  return result;
-};
-
-// push lesson data inside lesson array ------------------
-
-const addLesson = async (unitId, lessonData) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
     .collection("questions");
-
-  const result = await learningQuestionsCollection.updateOne(
-    { _id: new ObjectId(unitId) },
-    { $push: { lessons: lessonData } }
-  );
-
-  return result;
-};
-
-// -------------- push quize data inside quize array ----------------
-// Add a quiz to a lesson
-// const addQuiz = async (lessonId, quizData) => {
-//   const client = await connectToMongoDB();
-//   const learningQuestionsCollection = client.db("LangMaster").collection("questions");
-  
-
-//   const result = await learningQuestionsCollection.updateOne(
-//     { "lessons._id": new ObjectId(lessonId) }, // Find the lesson using its _id
-//     { $push: { "lessons.$.quiz": quizData } } // Push the new quiz into the lesson's quiz array
-//   );
-
-//   return result;
-// };
 
 
 module.exports = {
@@ -104,6 +72,6 @@ module.exports = {
   createLearningQuestion,
   unitAdd,
   finishedUnit,
-  singleUnit,
+
   addLesson,
 };
