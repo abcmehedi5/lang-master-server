@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const connectToMongoDB = require("../config/db");
 //  gate all question
 const getAllLearningQuestions = async () => {
@@ -56,33 +57,21 @@ const finishedUnit = async (userQuery, unitNumber) => {
 };
 // finished unit api end ----------------------------------------
 
-const certificateController = async (queryParameters) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
     .collection("questions");
-  const result = await learningQuestionsCollection.find().toArray();
-  console.log(result);
-};
-
-// add lesson and question dynamically start -----------------------------
-
-const addLesson = async (query) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
     .collection("questions");
-  const result = learningQuestionsCollection.findOne(query);
-  return result;
-};
 
-// add lesson and question dynamically end -------------------------------
 
 module.exports = {
   getAllLearningQuestions,
   createLearningQuestion,
   unitAdd,
   finishedUnit,
-  certificateController,
+
   addLesson,
 };

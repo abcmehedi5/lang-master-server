@@ -37,4 +37,4 @@ router.post("/blog", async (req, res) => {
     res.status(500).send({ error: "internal server error", error });
   }
 });
-module.exports = router;
+

@@ -70,6 +70,54 @@ router.post("/unitfinished/:id", async (req, res) => {
   }
 });
 
+
+// get a single unit data ----------------------------------
+router.get("/questions/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const unit = await learningQuestionsController.singleUnit(query);
+    res.status(200).send(unit);
+  } catch (error) {
+    console.error("Error fetching unit data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// push lesson data inside lesson array ------------------
+
+router.post("/add-lesson/:id", async (req, res) => {
+  try {
+    const unitId = req.params.id;
+    const lessonData = req.body; // Assuming you're sending the lesson data in the request body
+    const updatedUnit = await learningQuestionsController.addLesson(unitId, lessonData);
+    res.status(200).json(updatedUnit);
+  } catch (error) {
+    console.error("Error adding lesson:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// -------------- push quize data inside quize array ----------------
+// Add a quiz to a lesson
+// router.post("/add-quiz/:lessonId", async (req, res) => {
+//   try {
+//     const lessonId = req.params.lessonId;
+//     const quizData = req.body.newQuiz; // Assuming you're sending the quiz data in the request body
+
+//     // Call the function to add the quiz to the lesson
+//     const updatedLesson = await learningQuestionsController.addQuiz(lessonId, quizData);
+
+//     res.status(200).json(updatedLesson);
+//   } catch (error) {
+//     console.error("Error adding quiz:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+
+
 // unit fnished api end ----------------------
 
 // certificate get system
