@@ -52,6 +52,7 @@ const updateUser = async (userEmail, updatedData) => {
         address: updatedData.address,
         phoneNumber: updatedData.phoneNumber,
         gender: updatedData.gender,
+        image: updatedData.image,
       },
     }
   );
