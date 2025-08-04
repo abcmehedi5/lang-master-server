@@ -14,7 +14,16 @@ const paymentRoutes = require("./src/routes/paymentRoutes");
 const adminRoutes = require("./src/routes/adminRoutes");
 const makeUserRoutes = require("./src/routes/makeUserRoutes");
 const bookRoutes = require("./src/routes/bookRoutes");
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://langmaster.netlify.app",
+      "http://localhost:5173",
+      "https://langmastergreen.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
