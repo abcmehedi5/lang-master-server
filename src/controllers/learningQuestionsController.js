@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const connectToMongoDB = require("../config/db");
-//  gate all question
+//  gat all question
 const getAllLearningQuestions = async () => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
