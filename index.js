@@ -13,6 +13,7 @@ const paymentRoutes = require("./src/routes/paymentRoutes");
 const adminRoutes = require("./src/routes/adminRoutes");
 const makeUserRoutes = require("./src/routes/makeUserRoutes");
 const bookRoutes = require("./src/routes/bookRoutes");
+const translationRoutes = require("./src/routes/translationRoutes");
 app.use(
   cors({
     origin: [
@@ -40,6 +41,7 @@ app.use("/payment", paymentRoutes);
 app.use("/admins", adminRoutes);
 app.use("/makeUsers", makeUserRoutes);
 app.use("/books", bookRoutes);
+app.use("/translation", translationRoutes)
 // app.use("/unitMake", unitAddRoutes);
 
 // Error handling middleware
